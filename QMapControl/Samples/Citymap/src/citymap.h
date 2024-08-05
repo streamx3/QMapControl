@@ -1,7 +1,12 @@
 #pragma once
 
 // Qt includes.
+// #if QT_VERSION_MAJOR < 6
 #include <QtWidgets/QAction>
+// #else
+// #include <QtGui/QAction>
+// #endif
+
 #include <QtWidgets/QMainWindow>
 
 // QMapControl includes.

@@ -3,8 +3,8 @@ TEMPLATE = subdirs
 
 # Sub directory projects.
 SUBDIRS +=                  \
-    Citymap                 \
     GPS                     \
     LinesAndPoints          \
     Mapviewer               \
-    Multidemo               \
+    # Multidemo               \
+    # Citymap                 \

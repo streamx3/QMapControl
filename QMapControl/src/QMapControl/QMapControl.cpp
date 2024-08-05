@@ -595,7 +595,14 @@ namespace qmapcontrol
     void QMapControl::mousePressEvent(QMouseEvent* mouse_event)
     {
         // Store the mouse location of the current/starting mouse click.
-        m_mouse_position_current_px = PointViewportPx(mouse_event->localPos().x(), mouse_event->localPos().y());
+
+#if QT_VERSION_MAJOR >= 6
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->position().x(), mouse_event->position().y());
+#else
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->pos().x(), mouse_event->pos().y());
+#endif
         m_mouse_position_pressed_px = m_mouse_position_current_px;
 
         // Are mouse events enabled for all layers?
@@ -629,7 +636,13 @@ namespace qmapcontrol
     void QMapControl::mouseReleaseEvent(QMouseEvent* mouse_event)
     {
         // Store the mouse location of the current mouse click.
-        m_mouse_position_current_px = PointViewportPx(mouse_event->localPos().x(), mouse_event->localPos().y());
+#if QT_VERSION_MAJOR >= 6
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->position().x(), mouse_event->position().y());
+#else
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->pos().x(), mouse_event->pos().y());
+#endif
 
         // Default mouse mode.
         QMapControl::MouseButtonMode mouse_mode = QMapControl::MouseButtonMode::None;
@@ -781,7 +794,13 @@ namespace qmapcontrol
     void QMapControl::mouseDoubleClickEvent(QMouseEvent* mouse_event)
     {
         // Store the mouse location of the current mouse click.
-        m_mouse_position_current_px = PointViewportPx(mouse_event->localPos().x(), mouse_event->localPos().y());
+#if QT_VERSION_MAJOR >= 6
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->position().x(), mouse_event->position().y());
+#else
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->pos().x(), mouse_event->pos().y());
+#endif
 
         // Emit the double click mouse event with the press and current mouse coordinate.
         emit mouseEventDoubleClickCoordinate(mouse_event, toPointWorldCoord(m_mouse_position_pressed_px), toPointWorldCoord(m_mouse_position_current_px));
@@ -790,7 +809,13 @@ namespace qmapcontrol
     void QMapControl::mouseMoveEvent(QMouseEvent* mouse_event)
     {
         // Update the current mouse position.
-        m_mouse_position_current_px = PointViewportPx(mouse_event->localPos().x(), mouse_event->localPos().y());
+#if QT_VERSION_MAJOR >= 6
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->position().x(), mouse_event->position().y());
+#else
+        m_mouse_position_current_px
+            = PointViewportPx(mouse_event->pos().x(), mouse_event->pos().y());
+#endif
 
         // Default mouse mode.
         QMapControl::MouseButtonMode mouse_mode = QMapControl::MouseButtonMode::None;
@@ -834,7 +859,8 @@ namespace qmapcontrol
             if(m_current_zoom < m_zoom_maximum)
             {
                 // Capture the current wheel point at the current zoom level.
-                const PointViewportPx wheel_px(wheel_event->posF().x(), wheel_event->posF().y());
+                const PointViewportPx wheel_px(wheel_event->position().x(),
+                                               wheel_event->position().y());
                 const PointWorldCoord wheel_coord(toPointWorldCoord(wheel_px));
                 const PointPx wheel_delta(mapFocusPointWorldPx() - toPointWorldPx(wheel_px));
 
@@ -863,7 +889,8 @@ namespace qmapcontrol
             if(m_current_zoom > m_zoom_minimum)
             {
                 // Capture the current wheel point at the current zoom level.
-                const PointViewportPx wheel_px(wheel_event->posF().x(), wheel_event->posF().y());
+                const PointViewportPx wheel_px(wheel_event->position().x(),
+                                               wheel_event->position().y());
                 const PointWorldCoord wheel_coord(toPointWorldCoord(wheel_px));
                 const PointPx wheel_delta(mapFocusPointWorldPx() - toPointWorldPx(wheel_px));
 
@@ -1411,7 +1438,12 @@ namespace qmapcontrol
         if(force_redraw || checkBackbuffer())
         {
             // Schedule the redraw in a background thread.
+#if QT_VERSION_MAJOR < 6
             QtConcurrent::run(this, &QMapControl::redrawBackbuffer);
+#else
+            auto ret = QtConcurrent::run(
+                static_cast<void (QMapControl::*)()>(&QMapControl::redrawBackbuffer), this);
+#endif
         }
 
         // Loop through the layers to update the Geometries that have widgets as well.

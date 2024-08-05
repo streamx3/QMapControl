@@ -31,7 +31,7 @@ lib
 *.pro.user
 *.pro.user.*
 *.autosave
-build-*
+build*
 Makefile*
 moc_*.cpp
 qrc_*.cpp
