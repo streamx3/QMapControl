@@ -47,8 +47,7 @@ else()
 endif()
 
 
-# add_subdirectory(lib)
-add_subdirectory(QMapControl/Samples)
 add_subdirectory(QMapControl/src)
+add_subdirectory(QMapControl/Samples)
 
 

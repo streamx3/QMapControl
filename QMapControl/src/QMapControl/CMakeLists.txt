@@ -1,15 +1,12 @@
+cmake_minimum_required(VERSION 3.6.0)
+
+project(libqmapcontrol LANGUAGES CXX)
+
 # Include common configurations
 set(CMAKE_CXX_STANDARD 11)
 
-# Define the target name based on build type
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(TARGET_NAME qmapcontrold)
-else()
-    set(TARGET_NAME qmapcontrol)
-endif()
-
 # Define the target library
-add_library(${TARGET_NAME} SHARED
+add_library(${PROJECT_NAME} SHARED
     Geometry.cpp
     GeometryLineString.cpp
     GeometryPoint.cpp
@@ -44,13 +41,13 @@ add_library(${TARGET_NAME} SHARED
 )
 
 # Add the header files
-target_include_directories(${TARGET_NAME} PUBLIC
+target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # Define required defines
-target_compile_definitions(${TARGET_NAME} PUBLIC
+target_compile_definitions(${PROJECT_NAME} PUBLIC
     QT_NO_DEBUG_OUTPUT
     _USE_MATH_DEFINES
     _VARIADIC_MAX=6
@@ -60,7 +57,7 @@ target_compile_definitions(${TARGET_NAME} PUBLIC
 find_package(Qt6 QUIET COMPONENTS Core)
 # Link with Qt libraries
 if(Qt6Core_FOUND)
-    target_link_libraries(${TARGET_NAME} PUBLIC
+    target_link_libraries(${PROJECT_NAME} PUBLIC
         Qt6::Core
         # Qt6::Network
         Qt6::Widgets
@@ -68,7 +65,7 @@ if(Qt6Core_FOUND)
 else()
     find_package(Qt5 REQUIRED COMPONENTS Core)
     if(Qt5Core_FOUND)
-        target_link_libraries(${TARGET_NAME} PUBLIC
+        target_link_libraries(${PROJECT_NAME} PUBLIC
             Qt5::Core
             # Qt5::Network
             Qt5::Widgets
@@ -82,25 +79,25 @@ endif()
 if(QMC_GDAL)
     message(STATUS "Building with GDAL support...")
 
-    target_sources(${TARGET_NAME} PRIVATE
+    target_sources(${PROJECT_NAME} PRIVATE
         ESRIShapefile.cpp
         LayerESRIShapefile.cpp
     )
 
-    target_include_directories(${TARGET_NAME} PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         ${QMC_GDAL_INC}
     )
 
-    target_link_libraries(${TARGET_NAME} PRIVATE
+    target_link_libraries(${PROJECT_NAME} PRIVATE
         ${QMC_GDAL_LIB}
         gdal
     )
 endif()
 
 # Installation settings
-set_target_properties(${TARGET_NAME} PROPERTIES VERSION 1.0.0)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION 1.0.0)
 
-install(TARGETS ${TARGET_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 install(FILES
     qmapcontrol_global.h
     Geometry.h

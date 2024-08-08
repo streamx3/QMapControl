@@ -34,11 +34,13 @@ set(SRC_FILES
     src/main.cpp
     src/gpsclient.cpp
     src/gps.cpp
+    src/gps_neo.cpp
 )
 
 set(HEADER_FILES
     src/gpsclient.h
     src/gps.h
+    src/gps_neo.h
 )
 
 add_executable(${PROJECT_NAME}
