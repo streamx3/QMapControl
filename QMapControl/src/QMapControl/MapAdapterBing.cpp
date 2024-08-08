@@ -43,12 +43,13 @@ namespace qmapcontrol
     MapAdapterBing::MapAdapterBing(const MapAdapterBing::BingLayerType& layer_type, QObject* parent)
         : MapAdapter(QString("https://t.ssl.ak.tiles.virtualearth.net/tiles/a%q.jpeg?g=1000"), supportedProjections(), 17, 0, 0, parent) /// @todo remove once MSVC supports initializer lists.
     {
-    // https://t.ssl.ak.tiles.virtualearth.net/tiles/a120303211033000013.jpeg?g=8318&n=z&c4w=1&src=h
-    // https://t.ssl.ak.tiles.virtualearth.net/tiles/a120303211032112.jpeg?g=8318&n=z&c4w=1&src=h
-    // https://t.ssl.ak.tiles.virtualearth.net/tiles/a12030321103.jpeg?g=8318&n=z&c4w=1&src=h
-    // https://t.ssl.ak.tiles.virtualearth.net/tiles/a1203032112310101.jpeg?g=8318
-    // https://t.ssl.ak.dynamic.tiles.virtualearth.net/comp/ch/12030321123101013?it=G,BX,RL
-    // https://t.ssl.ak.dynamic.tiles.virtualearth.net/comp/ch/120303211211300?mkt=en-US&it=G,BX,RL&shading=hill&n=z&og=804&c4w=1&cstl=vb&src=h
+        Q_UNUSED(layer_type);
+        // https://t.ssl.ak.tiles.virtualearth.net/tiles/a120303211033000013.jpeg?g=8318&n=z&c4w=1&src=h
+        // https://t.ssl.ak.tiles.virtualearth.net/tiles/a120303211032112.jpeg?g=8318&n=z&c4w=1&src=h
+        // https://t.ssl.ak.tiles.virtualearth.net/tiles/a12030321103.jpeg?g=8318&n=z&c4w=1&src=h
+        // https://t.ssl.ak.tiles.virtualearth.net/tiles/a1203032112310101.jpeg?g=8318
+        // https://t.ssl.ak.dynamic.tiles.virtualearth.net/comp/ch/12030321123101013?it=G,BX,RL
+        // https://t.ssl.ak.dynamic.tiles.virtualearth.net/comp/ch/120303211211300?mkt=en-US&it=G,BX,RL&shading=hill&n=z&og=804&c4w=1&cstl=vb&src=h
 
     }
 

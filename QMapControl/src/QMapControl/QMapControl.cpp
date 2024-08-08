@@ -1315,6 +1315,7 @@ namespace qmapcontrol
         {
             // Draw the crosshair at the viewport center.
             // |
+            painter.setPen(Qt::red);
             painter.drawLine(m_viewport_center_px.x(), m_viewport_center_px.y() - 10.0,
                              m_viewport_center_px.x(), m_viewport_center_px.y() + 10.0);
             // -

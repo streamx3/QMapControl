@@ -14,9 +14,13 @@ TEMPLATE = app
 HEADERS +=                  \
     src/gps.h               \
     src/gps_neo.h           \
+    src/gpsclient.h
 
 # Add source files.
 SOURCES +=                  \
     src/main.cpp            \
     src/gps.cpp             \
     src/gps_neo.cpp         \
+    src/gpsclient.cpp
+
+LIBS += -lgps

@@ -26,8 +26,8 @@ GPS::GPS(QWidget* parent)
     m_map_control->addLayer(std::make_shared<LayerMapAdapter>("Custom Layer", std::make_shared<MapAdapterOSM>()));
 
     // Connect the GPS Neo signal/slot and start it.
-    QObject::connect(&m_gps_neo, &GPS_Neo::new_position, this, &GPS::updatePosition);
-    m_gps_neo.start();
+    // QObject::connect(&m_gps_neo, &GPS_Neo::new_position, this, &GPS::updatePosition);
+    // m_gps_neo.start();
 
     // Show QMapControl in QMainWindow.
     setCentralWidget(m_map_control);
