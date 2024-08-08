@@ -36,6 +36,7 @@ Makefile*
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
+*.user
 
 # Doxygen
 html/*
